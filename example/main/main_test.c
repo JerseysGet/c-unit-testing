@@ -39,8 +39,18 @@ void stringTests() {
     stringTest2();
 }
 
+char charFunc() {
+    return 'a';
+}
+
+long long longLongtest() {
+    return __LONG_LONG_MAX__;
+}
+
 int main() {
     factorialTests();
     stringTests();
+    TEST_EQ("sample char test", charFunc(), 'c');
+    TEST_EQ("sample ll test", longLongtest(), __LONG_LONG_WIDTH__);
     TEST_REPORT
 }
