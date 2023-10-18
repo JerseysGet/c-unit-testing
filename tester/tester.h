@@ -54,7 +54,9 @@ typedef struct TestReport {
     printf(" Running %s", TEST_NAME); \
     fflush(stdout);
 
+void __test_char(char* testName, char testValue, char expectedValue, TestReport* __report);
 void __test_int(char* testName, int testValue, int expectedValue, TestReport* __report);
+void __test_long_long(char* testName, long long testValue, long long expectedValue, TestReport* __report);
 void __test_string(char* testName, char* testValue, char* expectedValue, TestReport* __report);
 
 #define START_TIMER __report.testBeginTime = time(NULL);
@@ -71,13 +73,15 @@ void __test_string(char* testName, char* testValue, char* expectedValue, TestRep
     END_TIMER                                         \
     PRINT_TIME
 
-#define __GEN_TEST_EQ(TEST_NAME, TEST_FN, EXPECTED_VALUE) _Generic((EXPECTED_VALUE), \
-    int: __test_int,                                                                 \
+#define __GEN_TEST_EQ(TEST_NAME, TEST_FN, EXPECTED_VALUE) _Generic((TEST_FN), \
+    int: __test_int,                                                          \
+    long long: __test_long_long,                                              \
+    char: __test_char,                                                        \
     char*: __test_string)(TEST_NAME, TEST_FN, EXPECTED_VALUE, &__report);
 
 #define TEST_REPORT                                                \
-    printf("%d tests ", __report.totalTests); \
-    printf("in %lds\n", __report.totalTime);                        \
+    printf("%d tests ", __report.totalTests);                      \
+    printf("in %lds\n", __report.totalTime);                       \
     if (__report.failedTests == 0) {                               \
         printf(GREEN_BOLD("All Tests Passed"));                    \
     } else {                                                       \
