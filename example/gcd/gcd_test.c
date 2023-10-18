@@ -24,4 +24,5 @@ void gcdTests() {
 
 int main() {
     gcdTests();
+    TEST_REPORT;
 }
