@@ -27,11 +27,12 @@ typedef struct TestReport {
     int failedTests;
     time_t testBeginTime;
     time_t testEndTime;
+    time_t totalTime;
     bool ranFirstTest;
 } TestReport;
 
 #define INIT_TEST \
-    TestReport __report = {0, 0, 0, 0, false};
+    TestReport __report = {0, 0, 0, 0, 0, false};
 
 #define INCREMENT_FAIL __report.failedTests++;
 
@@ -58,7 +59,9 @@ void __test_string(char* testName, char* testValue, char* expectedValue, TestRep
 
 #define START_TIMER __report.testBeginTime = time(NULL);
 #define END_TIMER __report.testEndTime = time(NULL);
-#define PRINT_TIME printf(TIME_FORMAT, __report.testEndTime - __report.testBeginTime);
+#define PRINT_TIME                                                      \
+    printf(TIME_FORMAT, __report.testEndTime - __report.testBeginTime); \
+    __report.totalTime += __report.testEndTime - __report.testBeginTime;
 
 #define TEST_EQ(TEST_NAME, TEST_FN, EXPECTED_VALUE)   \
     PRINT_FIRST_MESSAGE                               \
@@ -73,7 +76,8 @@ void __test_string(char* testName, char* testValue, char* expectedValue, TestRep
     char*: __test_string)(TEST_NAME, TEST_FN, EXPECTED_VALUE, &__report);
 
 #define TEST_REPORT                                                \
-    printf("%d tests in %s\n", __report.totalTests, __FILENAME__); \
+    printf("%d tests ", __report.totalTests); \
+    printf("in %lds\n", __report.totalTime);                        \
     if (__report.failedTests == 0) {                               \
         printf(GREEN_BOLD("All Tests Passed"));                    \
     } else {                                                       \
