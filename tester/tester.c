@@ -15,7 +15,6 @@ void failMessage(char* testName, TestReport* __report) {
     printf(" %s failed,", testName);
 }
 
-
 void __test_int(char* testName, int testValue, int expectedValue, TestReport* __report) {
     clearLine();
     if (testValue == expectedValue) {

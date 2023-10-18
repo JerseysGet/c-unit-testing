@@ -1,7 +1,8 @@
 #include "main.h"
-#include <unistd.h>
+
 #include <stdlib.h>
 #include <string.h>
+#include <unistd.h>
 
 int factorial(int n) {
     sleep(1);
@@ -11,7 +12,7 @@ int factorial(int n) {
 
 char* string() {
     sleep(2);
-    char* ret = (char*) malloc(sizeof(char) * 128);
+    char* ret = (char*)malloc(sizeof(char) * 128);
     strcpy(ret, "test");
     return ret;
 }

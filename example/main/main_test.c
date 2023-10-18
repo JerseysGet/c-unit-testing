@@ -1,8 +1,10 @@
-#include "../../tester/tester.h"
 #include "main.h"
+
 #include <stdio.h>
-#include <unistd.h>
 #include <stdlib.h>
+#include <unistd.h>
+
+#include "../../tester/tester.h"
 
 INIT_TEST
 
