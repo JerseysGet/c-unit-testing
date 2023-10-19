@@ -27,11 +27,15 @@ void factorialTests() {
 }
 
 void stringTest1() {
-    TEST_EQ("String Test 1", string(), "test");
+    char* ret = string();
+    TEST_EQ("String Test 1", ret, "test");
+    free(ret);
 }
 
 void stringTest2() {
-    TEST_EQ("String Test 2", string(), "not test");
+    char* ret = string();
+    TEST_EQ("String Test 2", ret, "not test");
+    free(ret);
 }
 
 void stringTests() {
