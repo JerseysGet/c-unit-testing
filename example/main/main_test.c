@@ -40,6 +40,9 @@ void stringTests() {
 }
 
 char charFunc() {
+    sleep(2);
+    int* ptr = 0x0;
+    *ptr = 1;
     return 'a';
 }
 
@@ -47,10 +50,18 @@ long long longLongtest() {
     return __LONG_LONG_MAX__;
 }
 
+long long fpeTest() {
+    long long num = 1;
+    long long den = 0;
+    return num / den;
+}
+
 int main() {
+    BEGIN_TESTS
     factorialTests();
     stringTests();
     TEST_EQ("sample char test", charFunc(), 'c');
     TEST_EQ("sample ll test", longLongtest(), __LONG_LONG_WIDTH__);
+    TEST_EQ("sample rte test", fpeTest(), __LONG_LONG_MAX__);
     TEST_REPORT
 }

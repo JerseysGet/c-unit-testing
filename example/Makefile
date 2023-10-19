@@ -15,7 +15,7 @@ lol:
 test: $(FILE_TEST_EXECS)
 	
 %.test: %.c %_test.c
-	@gcc $^ $(TESTER_SRC) -o $@
+	@gcc -g $^ $(TESTER_SRC) -o $@
 	@./$@
 
 clean:
